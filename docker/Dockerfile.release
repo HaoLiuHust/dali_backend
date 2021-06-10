@@ -30,6 +30,10 @@ ARG TRITON_VERSION=21.03
 ARG BASE_IMAGE=nvcr.io/nvidia/tritonserver:${TRITON_VERSION}-py3
 FROM ${BASE_IMAGE} as builder
 
+ENV http_proxy=http://192.168.10.66:10809
+ENV https_proxy=http://192.168.10.66:10809
+RUN git config --global http.proxy http://192.168.10.66:10809 && git config --global https.proxy http://192.168.10.66:10809
+
 RUN apt-get update                                && \
     apt-get install -y software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa         && \
